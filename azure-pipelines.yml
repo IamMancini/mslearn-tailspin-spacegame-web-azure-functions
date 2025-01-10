@@ -11,9 +11,10 @@ stages:
   - job: 'Build'
     displayName: 'Build job'
     pool:
-      vmImage: 'ubuntu-20.04'
+      name: 'Default'
       demands:
-      - npm
+        - npm
+        - agent.name -equals AMANCINI
 
     variables:
       wwwrootDir: 'Tailspin.SpaceGame.Web/wwwroot'
@@ -71,7 +72,10 @@ stages:
   jobs:
   - deployment: Deploy
     pool:
-      vmImage: 'ubuntu-20.04'
+      name: 'Default'
+      demands:
+        - npm
+        - agent.name -equals AMANCINI
     environment: spike
     variables:
     - group: Release
